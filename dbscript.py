@@ -1,9 +1,9 @@
 from sqlalchemy import create_engine
-from itsdangerous import URLSafeSerializer
+import imp
+config = imp.load_source('config', 'instance/config.py')
 
-_serializer = URLSafeSerializer('ImRhdGFiYXNlIg.shLu-DN7Hsq9827VtuFf2IWaE6o')
-USERNAME = _serializer.loads('InFpdWxpIg.SG37e0WIwAYnZ1QfdRTwZfA6iBk')
-PASSWORD = _serializer.loads('Ijg2MDIyNnFsLiI.4dnVbZ6UCWbZ3NK2i9rkEPQlz_4')
+USERNAME = config.USERNAME 
+PASSWORD = config.PASSWORD 
 
 CONN_URL = 'postgresql+psycopg2://%s:%s@%s/%s'
 
