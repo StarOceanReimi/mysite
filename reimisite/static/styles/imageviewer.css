@@ -1,0 +1,87 @@
+.imageviewer {
+    margin: 0px 0px 15px 0px;
+    padding: 0;
+} 
+
+.layout-wrapper {
+    position: relative;
+    height: 480px;
+}
+
+.indexnavi {
+    user-select: none;
+    position: absolute;
+    cursor: default;
+    top: 20px;
+    right: 15px;
+}
+
+.indexnavi li {
+    width: 15px;
+    height: 15px;
+    border-radius: 15px 15px 15px 15px;
+    list-style: none; 
+    background: #eee;
+    margin-right: 5px;
+    opacity: 0.6;
+    display: inline-block;
+}
+
+.indexnavi li:hover {
+    opacity: .9;
+    background: #bbb;
+    user-select: none;
+    cursor: pointer;
+}
+
+.left {
+    left: 10px;
+}
+
+.right {
+    right: 10px;
+}
+
+.btn {
+    top: 40%;
+    border-radius: 100px 100px 100px 100px; 
+    width: 100px;
+    height: 100px;
+    line-height: 100px;
+    text-align: center;
+    font-size: 50px;
+    background-color: #eee;
+    cursor: pointer;
+    user-select: none;
+    color: white;
+    opacity: .4;
+    position: absolute;
+    border: 1px solid;
+}
+.btn:hover {
+    color: gray;
+    opacity: .8;
+}
+.viewer {
+    position: absolute;
+}
+.viewer div a {
+    outline: none;
+}
+
+.viewer .pack {
+    position: absolute;
+    display: none;
+} 
+.desc {
+    background: #000; 
+    position: absolute;
+    width: 100%;
+    bottom: 40px;
+    color: #eee;
+    opacity: .3;
+}
+.desc span {
+    opacity: 1;
+}
+

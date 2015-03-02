@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% block meta %}
+    <meta charset="UTF-8">
+    <meta name="description" content="Q's personal sites, Interesting stuff">
+    <meta name="keywords" content="Programming, Comics, Healthy Living">
+    {% endblock %}
+    {% block styles %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/main.css') }}">    
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/html5nav.css') }}">    
+    {% endblock %}
+    {% block script %}
+    <script src="{{ url_for('static', filename="js/require.js") }}" data-main="{% block datamain %}{% endblock %}"></script>
+    <script src="{{ url_for('static', filename="js/commonconfig.js") }}" type="text/javascript" ></script>
+    {% endblock %}
+    <title>{% block title %}{% endblock %}</title>
+</head>
+<body class="sitebody no_js cssgradients borderradius boxshadow rgba csstransforms">
+    {% block navigator %}
+    <div class="header non-selectable"><h1>Q's&nbsp;WORKSHOP</h1></div>
+    <nav>
+        <ul>
+            <li><a href="#">Home</a></li>
+            <li>
+                <a href="#">Apps<span>^</span></a>
+                <ul>
+                    <li><a href="#">Blogs</a></li>
+                    <li><a href="#">ComicsViewer</a></li>
+                    <li><a href="#">Games</a></li>
+                    <li><a href="#">Chatter</a></li>
+                    <li><a href="#">RssReader</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="#">Labs<span>^</span></a>
+                <ul>
+                    <li><a href="#">Weather</a></li>
+                    <li><a href="#">Calendar</a></li>
+                    <li><a href="#">Homework</a></li>
+                    <li><a href="#">QC&nbsp;Messages</a></li>
+                    <li><a href="#">WeChatIntegration</a></li>
+                    <li><a href="#">AmazonService</a></li>
+                </ul>
+            </li>
+            <li><a href="#">About</a></li>
+            <li>
+                <a href="#">Admin<span>^</span></a>
+                <ul>
+                    <li><a href="#">FTP&nbsp;Server</a></li>
+                    <li><a href="#">Crawler</a></li>
+                </ul>
+            </li>
+        </ul>
+    </nav>    
+    {% endblock %}  
+    {% block body %}
+    <div class="main csseffects">
+        <div class="wrapper">
+        <div class="contentwrapper">
+            {% block content %}
+            {% endblock %}
+        </div>
+        <div class="rightlink">
+            <div class="section">
+                <div class="linktitle non-selectable">Links</div>
+                <ul>
+                    <li><a href="#">Links1</a></li>
+                    <li><a href="#">Links2</a></li>
+                    <li><a href="#">Links3</a></li>
+                </ul>
+            </div>
+            <div class="section">
+                <div class="linktitle non-selectable">Other Links</div>
+                <ul>
+                    <li><a href="#">Links1</a></li>
+                    <li><a href="#">Links2</a></li>
+                    <li><a href="#">Links3</a></li>
+                </ul>
+            </div>
+        </div>
+        </div>
+    </div>
+    {% endblock %}
+</body>
+</html>

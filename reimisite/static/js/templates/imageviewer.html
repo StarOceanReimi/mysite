@@ -1,0 +1,19 @@
+<div class="imageviewer">
+    <div class="layout-wrapper">
+        <div class="viewer">
+            <%_.each(images, function(image){%>
+            <div class="pack">
+                <div class="desc"><span><%=image.desc%></span></div>
+                <a href="<%=image.dest%>"><img src="<%=image.src%>" alt="<%=image.title%>" width="<%=width%>" height="<%=height%>"></a>
+            </div>
+            <%}); %>
+        </div>
+        <div id="leftbtn" class="btn left">&lt;</div>
+        <div id="rightbtn" class="btn right">&gt;</div>
+        <ul class="indexnavi">
+            <%_.each(images, function(image, index){%>
+            <li data="<%=index%>" class="imageIndex">
+            <%});%>
+        </ul>
+    </div>
+</div>

@@ -1,10 +1,105 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title></title>
-</head>
-<body>
-    <h1>This is my home page!</h1>
-</body>
-</html>
+{% extends "layout.html" %}
+{% block title %}Q's Workshop{% endblock %}
+{% block styles %}
+{{ super() }}
+<link rel="stylesheet" href="{{ url_for('static', filename='styles/imageviewer.css') }}">
+{% endblock %}
+{% block datamain %}{{ url_for('static', filename='js/home-main.js') }}{% endblock %} 
+{% block content %}
+<div class="test">
+</div>
+<article>
+<div class="title default">Recent Articles</div>
+<div class="content">
+    Home
+    Web Design
+    SEO
+    Graphic Design
+    Project Management
+    ASPDotNetStorefront
+    Company
+    News
+    Support Forum
+
+December 10, 2008
+CSS Absolute and Relative positioning – explained
+Filed under: Tips — Tags: css — Webopius @ 1:51 pm
+
+I’m going to pick a statistic out of thin air and say that at least 80% of CSS tutorials describe absolute CSS positioning incorrectly. Now I’ve written that I’d better try and get it right here!
+What most tutorials say
+
+When covering absolute positioning, most CSS tutorials will say something along the lines of this:
+
+    “To position an element at a specific location on your page, use absolute positioning. For example, to position an element 54 pixels from the top of the page and 23 pixels from the left, use this CSS: {position: absolute; top: 54px; left: 23px; }
+
+Well, that’s not quite accurate, at least for elements that have a positioned parent element
+Correct Absolute Positioning
+
+The correct description of absolute positioning is a bit more complex and probably why many authors can’t get it to work correctly so float away their divs left and right without using any kind of positioning at all.
+
+In my words, this is how absolute CSS positioning should be described:
+
+    Absolute positioning allows you to position an element relative to it’s nearest positioned parent element. If no such parent element exists then the html or body element is used (depending on the browser).
+
+Yes, that’s right, absolute positioned elements are relative. Confused?
+
+All this means is that if any containing parent element is positioned (has it’s position:relative or position:absolute), then a child element with a position of absolute will be placed relative to this parent.
+Text flow for absolute positioned elements
+
+One final gotcha for absolute positioned items is that once an element is positioned using the absolute setting, then content will flow to fill the space where that element would have been before it was positioned.
+
+This is actually quite helpful and can be used for some neat effects. For example, the image you see to the right of this article is actually contained within the body of this article’s text. But, it is wrapped in a blockquote that has an absolute position. This moves the image to the right and the text of the article moves up to fill the space it vacated.
+Relative Positioning
+
+After all that head scratching with absolute positioning, relative positioning is actually very straightforward.
+
+    A relative positioned element is positioned relative to where it would have been if no positioning was used
+
+Also, unlike absolute positioning, content does not fill the space vacated by a relative positioned element.
+</div>
+</article>
+<article>
+<div class="title default">My Favorites</div>
+<div class="content">
+日期和时间在程序中应用广泛，每种程序开发语言都自带处理日期和时间的相关函数，很多开发者把日期和时间存入数据库中，但是，一旦涉及到跨时区的日期和时间的处理时，大多数开发者根本就不明白如何正确地处理日期和时间。
+
+首先，我们来看大部分的程序都是这么创建当前时间并存入数据库的：
+
+Date date = new Date();
+store2db(date);
+
+这么做的问题在于，数据库的DateTime类型没有时区（time zone）信息，因此，存入的是本地时间，并且丢掉了时区信息。如果你把数据库服务器的时区改了，或者把应用服务器的时区改了，读出来的日期和时间就是错误的。如果以Timestamp类型存储，各数据库的实现也不相同，有的进行了内部时区自动转换，而且，存储的时间不超过2037年。
+
+如果应用服务器的时区和数据库服务器的时区不一致，你无法确定数据库驱动程序会不会自动帮你转换。
+
+大多数开发者遇到这个问题不是去探索正确的解决方法，而是自作聪明地在存入数据库之前先来个“调整”，比如把当前时间减掉8小时，在显示的时候遇到不正确的时间时，又来个“调整”，以“负负得正”的方式来掩盖错误。在遇到夏令时的时区时，还需要写更复杂的代码来调整小时。
+
+正确的做法是先理解时间和时区的概念。
+时区的概念
+
+之所以有时区的概念是因为住在地球上不同地方的人看到太阳升起的时间是不一样的。我们假设北京人民在早上8:00看到了太阳刚刚升起，而此刻欧洲人民还在夜里，他们还需要再过7个小时才能看到太阳升起，所以，此刻欧洲人民的手表上显示的是凌晨1:00。如果你强迫他们用北京时间那他们每天看到日出的时间就是下午3点。
+
+也就是说，东8区的北京人民的手表显示的8:00和东1区欧洲人民手表显示的1:00是相同的时刻：
+
+"2014-10-14 08:00 +8:00" = "2014-10-14 01:00 +1:00"
+
+这就是本地时间的概念。
+
+但是，在计算机中，如果用本地时间来存储日期和时间，在遇到时区转换的问题上，即便你非常清楚地知道如何转换，也非常麻烦，尤其是矫情的美国人还在采用夏令时。
+
+所以我们需要引入“绝对时间”的概念。绝对时间不需要年月日，而是以秒来计时。当前时间是指从一个基准时间（1970-1-1 00:00:00 +0:00），到现在的秒数，用一个整数表示。
+
+当我们用绝对时间表示日期和时间时，无论服务器在哪个时区，任意时刻，他们生成的时间值都是相等的。所有编程语言都提供了方法来生成这个时间戳，Java和JavaScript输出以毫秒计算的Long型整数，Python等输出标准的Unix时间戳，以秒计算的Float型浮点数，这两者转换只存在1000倍的关系。
+
+实际上，操作系统内部的计时器也是这个标准的时间戳，只有在显示给用户的时候，才转换为字符串格式的本地时间。
+正确的存储方式
+
+基于“数据的存储和显示相分离”的设计原则，我们只要把表示绝对时间的时间戳（无论是Long型还是Float）存入数据库，在显示的时候根据用户设置的时区格式化为正确的字符串。
+
+数据的存储和显示相分离是非常基本的设计原则，却常常被大多数开发人员忽略。举个例子，在Excel中编写一个表格，表格的数据可视为数据的存储格式，你可以把表格的数据以柱状图或饼图表示出来，这些不同的图表是数据的不同显示格式，存储数据的时候，我们应该存储表格数据，绝不应该存储柱状图等图片信息。
+
+HTML和CSS也是数据的存储和显示相分离的设计思想。
+
+所以，数据库存储时间和日期时，只需要把Long或者Float表示的时间戳存到BIGINT或REAL类型的列中，完全不用管数据库自己提供的DATETIME或TIMESTAMP，也不用担心应用服务器和数据库服务器的时区设置问题，遇到Oracle数据库你不必去理会with timezone和with local timezone到底有啥区别。</div>
+</article>
+{% endblock %}
