@@ -1,11 +1,6 @@
 define(['jquery', 'underscore', 'backbone', 'text!templates/imageviewer.html', 'jquery-ui'], 
 function($, _, Backbone, tpl){
 
-    Backbone.sync = function(method, model, success, error) {
-        model.push([{title: 'Hancock1', desc:'I love boa hancock!', src:'http://4.bp.blogspot.com/-8PmtiQjQZTE/Ud0Ng32nGQI/AAAAAAAADzg/JteT3GG0BCs/s1600/luffy_and_hancock_wallpaper_by_heroakemi-d41bg4z+%5Banimefullfights.com%5D.jpg', dest:'#'},
-                    {title: 'Hancock2', desc:'I love boa hancock!', src:'http://animelivewallpaper.com/wp-content/uploads/2013/06/boa-hancock-1024.jpg', dest:'#'}]);
-        model.trigger('change');
-    };
     var ImageModel = Backbone.Model.extend({
         defaults : {
             title : '',
@@ -37,7 +32,8 @@ function($, _, Backbone, tpl){
                 _.bindAll(this, 'render', 'next', 'prev'); 
                 this.tpl = _.template(tpl);
                 this.index = 0;
-                this.listenTo(this.model, 'change', this.render);
+                this.listenTo(this.model, 'load_complete', this.render);
+                
                 var self = this;
             },
             render : function(){
@@ -45,6 +41,22 @@ function($, _, Backbone, tpl){
                 html = this.tpl({width: this.width, height: this.height, images: imgs});
                 $(this.el).empty();
                 $(this.el).append(html);
+                $(function(){
+                    var imagesDiv = $('.viewer>div');
+                    $(imagesDiv).eq(0).show();
+                    var indexNavs = $('.indexnavi>li');
+                    if(indexNavs.length > 10) {
+                        $('.indexnavi:eq(0)').hide()
+                    } else {
+                        _.each(indexNavs, function(nav, i){
+                            $(nav).click(function(){
+                                var current = imageview.index;
+                                if(current != i)
+                                   imageview.showImage(i, current-i>0);
+                            }); 
+                        });
+                    }
+                }); 
             },
             showImage : function(next, isRight) {
                 var max = this.model.length;
@@ -75,20 +87,13 @@ function($, _, Backbone, tpl){
             model : images
         }); 
         _.extend(imageview, this);
-        images.url = "/getPopularImages";
-        images.fetch();
-        $(function(){
-            var imagesDiv = $('.viewer>div');
-            $(imagesDiv).eq(0).show();
-            var indexNavs = $('.indexnavi>li');
-            _.each(indexNavs, function(nav, i){
-                $(nav).click(function(){
-                    var current = imageview.index;
-                    if(current != i)
-                       imageview.showImage(i, current-i>0);
-                }); 
-            });
+        images.url = "/popularimages";
+        images.fetch({
+            success : function(results){
+                images.trigger('load_complete');
+            }
         });
+      
     };
 
     return ImageViewer;
