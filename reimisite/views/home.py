@@ -24,6 +24,8 @@ def _get_imagepath_onserver(dirname):
     return os.path.join(IMAGEPATH, dirname)
 
 def _clear_server_imagepath():
+    """clear all shared images on server
+    """
     alldirs = _list_dir_with_parentpath(IMAGEPATH)
     for filename in alldirs:
         if os.path.isdir(filename):
@@ -32,6 +34,9 @@ def _clear_server_imagepath():
             os.remove(filename)
 
 def _clear_imageapth_onserver(dirname):
+    """clear images on shared image directory by specific
+       dirname
+    """
     imagepath_onserver = _get_imagepath_onserver(dirname)
     if os.path.exists(imagepath_onserver):
         shutil.rmtree(imagepath_onserver)
@@ -82,7 +87,7 @@ def popular_images():
                        join(basename, x))),\
                        os.listdir(shared_images_dir))
     picked_links = sorted(picked_links)
-    response_json = json.dumps([dict(src=link, title=basename, dest="#",\
+    response_json = json.dumps([dict(src=link, title=basename, dest=link,\
                             desc="Hentai Collection! Which I love! Haha")\
                             for link in picked_links])
     return Response(response_json, mimetype="application/json")

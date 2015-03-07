@@ -4,7 +4,7 @@
             <%_.each(images, function(image){%>
             <div class="pack">
                 <div class="desc"><span><%=image.desc%></span></div>
-                <a href="<%=image.dest%>"><img src="<%=image.src%>" alt="<%=image.title%>" width="<%=width%>" height="<%=height%>"></a>
+                <a target="_blank" href="<%=image.dest%>"><img src="<%=image.src%>" alt="<%=image.title%>" width="<%=width%>" height="<%=height%>"></a>
             </div>
             <%}); %>
         </div>

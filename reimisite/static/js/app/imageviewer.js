@@ -14,8 +14,7 @@ function($, _, Backbone, tpl){
     }); 
 
 
-    var images = new Images();
-    var ImageViewer = function(config){
+    var ImageViewer = function(config) {
 
         _.extend(this, config);
 
@@ -33,8 +32,6 @@ function($, _, Backbone, tpl){
                 this.tpl = _.template(tpl);
                 this.index = 0;
                 this.listenTo(this.model, 'load_complete', this.render);
-                
-                var self = this;
             },
             render : function(){
                 var imgs = this.model.toJSON();
@@ -46,7 +43,7 @@ function($, _, Backbone, tpl){
                     $(imagesDiv).eq(0).show();
                     var indexNavs = $('.indexnavi>li');
                     if(indexNavs.length > 10) {
-                        $('.indexnavi:eq(0)').hide()
+                        $('.indexnavi:eq(0)').hide();
                     } else {
                         _.each(indexNavs, function(nav, i){
                             $(nav).click(function(){
@@ -76,18 +73,19 @@ function($, _, Backbone, tpl){
                 this.index = next;
                 
             },
-            next : function(){
+            next : function() {
                 this.showImage(this.index+1, true);
             },
             prev : function(){
                 this.showImage(this.index-1, false);
             }
         });
+        var images = new Images();
         var imageview = new ImageView({
             model : images
         }); 
         _.extend(imageview, this);
-        images.url = "/popularimages";
+        images.url = this.url;
         images.fetch({
             success : function(results){
                 images.trigger('load_complete');

@@ -1,7 +1,7 @@
 define(['app/imageviewer'], function(ImageViewer){
     return {
         init : function (){
-            new ImageViewer({el : '.test'});
+            new ImageViewer({el : '.test', url: '/popularimages'});
         }
     };
 });
